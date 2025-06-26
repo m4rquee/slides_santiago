@@ -1,0 +1,88 @@
+\ProvidesPackage{macrossty}
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+% \RequirePackage{amsthm}         % \theoremstyle{plain/definition/remark}
+\RequirePackage{array}          % \newcolumntype
+\RequirePackage{mathtools}      % \DeclarePairedDelimiter
+\RequirePackage{xifthen}        % \ifthenelse, \isempty
+\RequirePackage{xparse}         % \NewDocumentCommand (more manageable optional parameters)
+
+
+\RequirePackage{amssymb,boxedminipage,amsmath,complexity}
+\RequirePackage[normalem]{ulem}
+\RequirePackage[export]{adjustbox}
+
+\RequirePackage{enumitem}
+\RequirePackage{framed}
+\RequirePackage{xspace}
+\RequirePackage{xifthen}
+\RequirePackage{tabularx}
+
+%% Cute problem environment
+
+\captionsetup{compatibility=false}
+
+\newlength{\RoundedBoxWidth}
+\newsavebox{\GrayRoundedBox}
+\newenvironment{GrayBox}[1]%
+   {\setlength{\RoundedBoxWidth}{.93\textwidth}
+    \def\boxheading{#1}
+    \begin{lrbox}{\GrayRoundedBox}
+       \begin{minipage}{\RoundedBoxWidth}}%
+   {   \end{minipage}
+    \end{lrbox}
+    \begin{center}
+    \begin{tikzpicture}%
+       \node(Text)[draw=black!20,fill=white,rounded corners,%
+             inner sep=2ex,text width=\RoundedBoxWidth]%
+             {\usebox{\GrayRoundedBox}};
+        \coordinate(x) at (current bounding box.north west);
+        \node [draw=white,rectangle,inner sep=3pt,anchor=north west,fill=white]
+        at ($(x)+(6pt,.75em)$) {\boxheading};
+    \end{tikzpicture}
+    \end{center}}
+
+\newenvironment{defproblemx}[2][]{\noindent\ignorespaces%
+                                \FrameSep=6pt%
+                                \parindent=0pt%
+                \vspace*{-1.5em}
+                \ifthenelse{\isempty{#1}}{%
+                  \begin{GrayBox}{\textsc{#2}}%
+                }{%
+                  \begin{GrayBox}{\textsc{#2} parameterized by~{#1}}%
+                }
+                \newcommand\Prob{Problem:}%
+                \newcommand\Input{Instância:}%
+                \begin{tabular*}{\textwidth}{@{\hspace{.1em}} >{\itshape} p{1.8cm} p{0.8\textwidth} @{}}%
+            }{
+                \end{tabular*}%
+                \end{GrayBox}%
+                \ignorespacesafterend
+            }
+
+
+\newcommand{\defproblema}[3]{%
+  \begin{defproblemx}{#1}
+    {\bf Instância:}  & #2 \\
+    {\bf Pergunta:} & #3
+  \end{defproblemx}
+}%
+
+\newcommand{\defproblemaOPT}[3]{%
+  \begin{defproblemx}{#1}
+    {\bf Instância:}  & #2 \\
+    {\bf Objetivo:} & #3
+  \end{defproblemx}
+}%
+
+\newcommand\problemdef[3]{
+	\defproblema{#1}{#2}{#3}
+}
+
+\newcommand\problemdefOPT[3]{
+	\defproblemaOPT{#1}{#2}{#3}
+}
+
+\DeclareOption*{\PackageWarning{macros}{Unknown ‘\CurrentOption’}}
+\ProcessOptions\relax

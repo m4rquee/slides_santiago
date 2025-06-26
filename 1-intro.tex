@@ -1,0 +1,26 @@
+\begin{frame}{Problema Exemplo}
+    \defproblemaOPT
+        {Conjunto Independente Máximo (CI)}
+        {Grafo $G = (V, E)$.\pause}
+        {$S \subseteq V$ tal que $|E(G[S])|=0$, com $|S|$ máximo.}
+\end{frame}
+
+\begin{frame}{Dificuldade}
+    \begin{thm}[\cite{Ga79}]
+        O problema do Conjunto Independente Máximo é NP-difícil, mesmo em grafos cúbicos e planares.
+    \end{thm}
+\end{frame}
+
+\begin{frame}{Limitante de Aproximação}
+    \begin{thm}[\cite{Hstad99}]
+        Seja $n$ o número de vértices de um grafo, e $\varepsilon > 0$. \medskip \pause
+
+        Não existe aproximação com fator $O(n^{\varepsilon - 1})$ para CI, a menos que $P = NP$.
+    \end{thm}
+\end{frame}
+
+\begin{frame}{Algoritmo para Árvores}
+    \begin{thm}[folclore]
+        Seja $T$ uma árvore. É possível computar um conjunto independente máximo de $T$ em tempo polinomial.
+    \end{thm}
+\end{frame}
